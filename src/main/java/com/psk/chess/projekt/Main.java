@@ -1,20 +1,23 @@
 package com.psk.chess.projekt;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+import static com.psk.chess.projekt.Game.gameInnit;
+
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        Group root = new Group();
+        Scene scene = new Scene(root, 512, 512, Color.LIGHTBLUE);
+        stage.setTitle("Chess");
         stage.setScene(scene);
-        stage.show();
+        gameInnit(root);
     }
 
     public static void main(String[] args) {
