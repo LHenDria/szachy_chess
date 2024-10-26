@@ -1,18 +1,19 @@
 package com.psk.chess.projekt;
 
-import javafx.event.EventType;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
+import static java.lang.Math.floor;
 
 public class Mouse {
-    static double getXMousePosition() {
-        // Wartości są zwracane w relacji do systemu nie okna.
-        return MouseInfo.getPointerInfo().getLocation().getX();
+    static class MouseCoordinates {
+        int x;
+        int y;
     }
 
-    static double getYMousePosition() {
-        return MouseInfo.getPointerInfo().getLocation().getY();
+    public static void getMouseCoordsRelativeToChessBoard(Scene scene, MouseCoordinates mouseCoordinates) {
+        scene.setOnMouseMoved(event -> {
+            mouseCoordinates.x = (int) floor(event.getSceneX()/64);
+            mouseCoordinates.y = (int) floor(event.getSceneY()/64);
+        });
     }
 }

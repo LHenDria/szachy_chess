@@ -4,7 +4,7 @@ module com.psk.chess.projekt {
 
     requires org.controlsfx.controls;
     requires com.almasb.fxgl.all;
-    requires java.desktop;
+    requires com.fasterxml.jackson.databind;
 
     opens com.psk.chess.projekt to javafx.fxml;
     exports com.psk.chess.projekt;

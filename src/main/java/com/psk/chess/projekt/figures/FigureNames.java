@@ -12,5 +12,6 @@ public enum FigureNames {
     BLACKROOK,
     BLACKBISHOP,
     BLACKHORSEY,
-    BLACKPAWN
+    BLACKPAWN,
+    EMPTY
 }

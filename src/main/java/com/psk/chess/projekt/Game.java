@@ -2,6 +2,9 @@ package com.psk.chess.projekt;
 
 import com.psk.chess.projekt.figures.FigureNames;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 import static com.psk.chess.projekt.ChessBoard.createChessBoard;
 
@@ -28,12 +31,19 @@ public class Game {
         for (int i = 0; i < 8; i++) {
             gameBoard[1][i] = FigureNames.BLACKPAWN;
             gameBoard[6][i] = FigureNames.WHITEPAWN;
+            gameBoard[2][i] = FigureNames.EMPTY;
+            gameBoard[3][i] = FigureNames.EMPTY;
+            gameBoard[4][i] = FigureNames.EMPTY;
+            gameBoard[5][i] = FigureNames.EMPTY;
         }
     }
-    public static void gameInnit(Group root) {
+    public static void gameInnit(Group root, Scene scene, Stage stage) {
         FigureNames[][] gameBoard = new FigureNames[8][8];
-        gameBoardSetToBasic(gameBoard);
+        Rectangle[][] figureTextures = new Rectangle[8][8];
         createChessBoard(root);
-        DrawFigures.drawFigures(gameBoard, root);
+        gameBoardSetToBasic(gameBoard);
+        GameLoop gameLoop = new GameLoop(scene, root, stage, gameBoard, figureTextures);
+        gameLoop.start();
+
     }
 }

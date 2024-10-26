@@ -17,7 +17,8 @@ public class Main extends Application {
         Scene scene = new Scene(root, 512, 512, Color.LIGHTBLUE);
         stage.setTitle("Chess");
         stage.setScene(scene);
-        gameInnit(root);
+        stage.show();
+        gameInnit(root, scene, stage);
     }
 
     public static void main(String[] args) {
