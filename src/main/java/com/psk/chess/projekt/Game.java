@@ -1,12 +1,10 @@
 package com.psk.chess.projekt;
 
 import com.psk.chess.projekt.figures.FigureNames;
-import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import static com.psk.chess.projekt.ChessBoard.createChessBoard;
 
 public class Game {
     private static void gameBoardSetToBasic(FigureNames[][] gameBoard) {
@@ -37,13 +35,12 @@ public class Game {
             gameBoard[5][i] = FigureNames.EMPTY;
         }
     }
-    public static void gameInnit(Group root, Scene scene, Stage stage) {
+    public static void gameInnit(Pane pane, Scene scene, Stage stage) {
         FigureNames[][] gameBoard = new FigureNames[8][8];
         Rectangle[][] figureTextures = new Rectangle[8][8];
-        createChessBoard(root);
+        MovingFigures.SelectedFigure selectedFigure = new MovingFigures.SelectedFigure();
         gameBoardSetToBasic(gameBoard);
-        GameLoop gameLoop = new GameLoop(scene, root, stage, gameBoard, figureTextures);
+        GameLoop gameLoop = new GameLoop(scene, pane, stage, gameBoard, figureTextures, selectedFigure);
         gameLoop.start();
-
     }
 }
