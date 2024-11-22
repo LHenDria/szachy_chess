@@ -1,26 +1,19 @@
 package com.psk.chess.projekt.figures;
 
 public abstract class Movement {
+
+    // Abstrakcyjna metoda do zaimplementowania przez podklasy, która sprawdza, czy ruch jest legalny.
     public abstract boolean isMoveLegal(FigureNames[][] gameBoard, int figure_y, int figure_x, int mouse_y, int mouse_x);
+
+    // Uproszczona wersja metody isFigureBlack.
     public boolean isFigureBlack(FigureNames[][] gameBoard, int figure_y, int figure_x) {
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKKING) {
-            return true;
-        }
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKQUEEN) {
-            return true;
-        }
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKROOK) {
-            return true;
-        }
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKBISHOP) {
-            return true;
-        }
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKHORSEY) {
-            return true;
-        }
-        if(gameBoard[figure_y][figure_x] == FigureNames.BLACKPAWN) {
-            return true;
-        }
-        return false;
+        FigureNames figure = gameBoard[figure_y][figure_x];
+
+        // Sprawdzamy, czy figura jest czarna, używając instrukcji switch.
+        return switch (figure) {
+            case BLACKKING, BLACKQUEEN, BLACKROOK, BLACKBISHOP, BLACKHORSEY, BLACKPAWN -> true;
+            default -> false;
+        };
     }
+
 }

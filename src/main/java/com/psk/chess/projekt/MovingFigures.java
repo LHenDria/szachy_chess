@@ -33,7 +33,7 @@ public class MovingFigures {
             movement = new KingMovement();
         }
         if(selectedFigure.figure == FigureNames.BLACKROOK || selectedFigure.figure == FigureNames.WHITEROOK) {
-            movement = new KingMovement();
+            movement = new RookMovement();
         }
         try {
             if (movement.isMoveLegal(gameBoard, selectedFigure.figure_y, selectedFigure.figure_x, mouseCoordinatesRelative.y, mouseCoordinatesRelative.x)) {
