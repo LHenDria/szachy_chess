@@ -1,6 +1,5 @@
 package com.psk.chess.projekt;
 
-import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

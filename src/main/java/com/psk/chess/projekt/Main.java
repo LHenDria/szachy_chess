@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static com.psk.chess.projekt.Game.gameInnit;
+import static com.psk.chess.projekt.GameBoard.gameInnit;
 
 public class Main extends Application {
     @Override

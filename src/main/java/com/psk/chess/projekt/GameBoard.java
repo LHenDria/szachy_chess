@@ -6,8 +6,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Game {
+public class GameBoard {
     private static void gameBoardSetToBasic(FigureNames[][] gameBoard) {
+        for(int i = 0; i < 8; i++) {
+            for(int j = 0; j < 8; j++) {
+                gameBoard[i][j] = FigureNames.EMPTY;
+            }
+        }
         gameBoard[0][0] = FigureNames.BLACKROOK;
         gameBoard[0][1] = FigureNames.BLACKHORSEY;
         gameBoard[0][2] = FigureNames.BLACKBISHOP;
