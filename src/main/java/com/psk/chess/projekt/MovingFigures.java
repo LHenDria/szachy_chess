@@ -26,8 +26,10 @@ public class MovingFigures {
 
     public static void moveFigure(Pane pane, FigureNames[][] gameBoard, Mouse.MouseCoordinates mouseCoordinatesRelative, SelectedFigure selectedFigure) {
         Movement movement = null;
+        PawnBonus checker = null;
         if(selectedFigure.figure == FigureNames.BLACKPAWN || selectedFigure.figure == FigureNames.WHITEPAWN) {
             movement = new PawnMovement();
+            checker = new PawnBonus();
         }
         if(selectedFigure.figure == FigureNames.BLACKKING || selectedFigure.figure == FigureNames.WHITEKING) {
             movement = new KingMovement();
@@ -37,10 +39,19 @@ public class MovingFigures {
         }
         try {
             if (movement.isMoveLegal(gameBoard, selectedFigure.figure_y, selectedFigure.figure_x, mouseCoordinatesRelative.y, mouseCoordinatesRelative.x)) {
-                gameBoard[selectedFigure.figure_y][selectedFigure.figure_x] = FigureNames.EMPTY;
-                gameBoard[mouseCoordinatesRelative.y][mouseCoordinatesRelative.x] = selectedFigure.figure;
-                System.out.println("Moved figure.");
-            } else {
+                if(!checker.End(gameBoard, selectedFigure.figure_y, selectedFigure.figure_x)) {
+                    gameBoard[selectedFigure.figure_y][selectedFigure.figure_x] = FigureNames.EMPTY;
+                    gameBoard[mouseCoordinatesRelative.y][mouseCoordinatesRelative.x] = selectedFigure.figure;
+                    System.out.println("Moved figure.");
+                } else {
+                    if (selectedFigure.figure == FigureNames.WHITEPAWN)
+                        gameBoard[mouseCoordinatesRelative.y][mouseCoordinatesRelative.x] = FigureNames.WHITEQUEEN;
+                    else
+                        gameBoard[mouseCoordinatesRelative.y][mouseCoordinatesRelative.x] = FigureNames.BLACKQUEEN;
+                    gameBoard[selectedFigure.figure_y][selectedFigure.figure_x] = FigureNames.EMPTY;
+                    System.out.println("Queen deployed");
+                }
+                } else {
                 System.out.println("Invalid move.");
             }
         } catch (NullPointerException e) {
