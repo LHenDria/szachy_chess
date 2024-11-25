@@ -13,6 +13,10 @@ public class GameBoard {
                 gameBoard[i][j] = FigureNames.EMPTY;
             }
         }
+/*
+        gameBoard[1][3] = FigureNames.WHITEBISHOP;
+        gameBoard[5][7] = FigureNames.WHITEROOK;
+*/
         gameBoard[0][0] = FigureNames.BLACKROOK;
         gameBoard[0][1] = FigureNames.BLACKHORSEY;
         gameBoard[0][2] = FigureNames.BLACKBISHOP;
@@ -34,10 +38,6 @@ public class GameBoard {
         for (int i = 0; i < 8; i++) {
             gameBoard[1][i] = FigureNames.BLACKPAWN;
             gameBoard[6][i] = FigureNames.WHITEPAWN;
-            gameBoard[2][i] = FigureNames.EMPTY;
-            gameBoard[3][i] = FigureNames.EMPTY;
-            gameBoard[4][i] = FigureNames.EMPTY;
-            gameBoard[5][i] = FigureNames.EMPTY;
         }
     }
     public static void gameInnit(Pane pane, Scene scene, Stage stage) {
