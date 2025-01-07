@@ -5,9 +5,9 @@ import javafx.scene.Scene;
 import static java.lang.Math.floor;
 
 public class Mouse {
-    static class MouseCoordinates {
-        int x;
-        int y;
+    public static class MouseCoordinates {
+        public int x;
+        public int y;
     }
 
     public static void getMouseCoordsRelativeToChessBoard(Scene scene, MouseCoordinates mouseCoordinates) {

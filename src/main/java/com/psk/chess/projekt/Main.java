@@ -10,7 +10,15 @@ import java.io.IOException;
 
 import static com.psk.chess.projekt.GameBoard.gameInnit;
 
+/**
+ * Klasa main od której rozpoczyna się działanie programu.
+ */
 public class Main extends Application {
+    /**
+     * Metoda start() tworzy okno gry, panel oraz scenę.
+     * @param stage okno gry tworzone przez framework JavaFX.
+     * @throws IOException wyjątek wyrzucany przez framework JavaFX.
+     */
     @Override
     public void start(Stage stage) throws IOException {
         Pane pane = new Pane();
@@ -21,6 +29,10 @@ public class Main extends Application {
         gameInnit(pane, scene, stage);
     }
 
+    /**
+     * Metoda main() uruchamia metodę launch() z klasy Application.
+     * @param args argumenty dla metody main().
+     */
     public static void main(String[] args) {
         launch();
     }

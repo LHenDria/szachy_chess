@@ -1,6 +1,8 @@
 package com.psk.chess.projekt;
 
 import com.psk.chess.projekt.figures.FigureNames;
+import javafx.application.Platform;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -8,6 +10,28 @@ import javafx.scene.shape.Rectangle;
 import static com.psk.chess.projekt.SimpleShapes.createSquare;
 
 public class Drawing {
+    public static void drawPromotionFigures(FigureNames[][] gameBoard,Pane pane) {
+        SimpleShapes.createSquare(128, 224, 64, 64, Color.WHITESMOKE, pane);
+        SimpleShapes.createSquare(192, 224, 64, 64, Color.WHITESMOKE, pane);
+        SimpleShapes.createSquare(256, 224, 64, 64, Color.WHITESMOKE, pane);
+        SimpleShapes.createSquare(320, 224, 64, 64, Color.WHITESMOKE, pane);
+
+        for (int i = 0; i < 8; i++) {
+            if (gameBoard[0][i] == FigureNames.WHITEPAWN) {
+                SimpleShapes.createSquareTexturedPromotion(128, 224, 64, 64, "whitebishop.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(192, 224, 64, 64, "whitehorsey.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(256, 224, 64, 64, "whiterook.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(320, 224, 64, 64, "whitequeen.png", pane);
+            }
+            if (gameBoard[7][i] == FigureNames.BLACKPAWN) {
+                SimpleShapes.createSquareTexturedPromotion(128, 224, 64, 64, "blackbishop.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(192, 224, 64, 64, "blackhorsey.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(256, 224, 64, 64, "blackrook.png", pane);
+                SimpleShapes.createSquareTexturedPromotion(320, 224, 64, 64, "blackqueen.png", pane);
+            }
+        }
+    }
+
     public static void createChessBoard(Pane pane) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
