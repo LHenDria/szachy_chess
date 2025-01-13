@@ -1,21 +1,23 @@
 package com.psk.chess.projekt;
 
+import com.psk.chess.projekt.api.Member;
+import com.psk.chess.projekt.mouse.MousePos;
 import com.psk.chess.projekt.figures.*;
 import com.psk.chess.projekt.figures.checks.Check;
 import com.psk.chess.projekt.figures.checks.CheckChecker;
 import com.psk.chess.projekt.figures.checks.CheckmateChecker;
+import com.psk.chess.projekt.menus.Menus;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
+import java.net.InetSocketAddress;
+import java.net.URI;
 import java.util.Arrays;
 
-public class MovingFigures {
-    public static int number_of_turns = 0;
-    public static boolean is_white_turn = true;
-    public static EnPassantStates[] whiteEnPassantStates = new EnPassantStates[8];
-    public static EnPassantStates[] blackEnPassantStates = new EnPassantStates[8];
+import static com.psk.chess.projekt.GameLoop.gameBoardSetToBasic;
+import static com.psk.chess.projekt.Globals.*;
 
-    // blok statyczny pog
+public class MovingFigures {
     static {
         Arrays.fill(whiteEnPassantStates, EnPassantStates.NOTELIGABLE);
         Arrays.fill(blackEnPassantStates, EnPassantStates.NOTELIGABLE);
@@ -35,20 +37,67 @@ public class MovingFigures {
         }
     }
 
-    public static void selectFigure(Pane pane, Scene scene, FigureNames[][] gameBoard, Mouse.MouseCoordinates mouseCoordinatesRelative, SelectedFigure selectedFigure, Menus menus) {
+    public static void selectFigure(Pane pane, Scene scene, FigureNames[][] gameBoard, MousePos.MouseCoordinates mouseCoordinates, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, SelectedFigure selectedFigure) {
         scene.setOnMouseClicked(event -> {
-            if (selectedFigure.figure_x == -1 && selectedFigure.figure_y == -1 && selectedFigure.figure == FigureNames.EMPTY) {
-                selectedFigure.figure_x = mouseCoordinatesRelative.x;
-                selectedFigure.figure_y = mouseCoordinatesRelative.y;
-                selectedFigure.figure = gameBoard[selectedFigure.figure_y][selectedFigure.figure_x];
-                System.out.println("Selected " + selectedFigure.figure);
-            } else {
-                moveFigure(pane, scene, gameBoard, mouseCoordinatesRelative, selectedFigure, menus);
+            switch (menu) {
+                case ONLINE_GAME:
+                    if(member == Member.CLIENT) {
+                        client.onMessage("");
+                    }
+                    if(member == Member.SERVER) {
+                        server.setGameBoard(gameBoard);
+                    }
+                    break;
+                case ONLINE_MENU:
+                    if (mouseCoordinates.x >= 64 && mouseCoordinates.x <= 384) {
+                        if (mouseCoordinates.y >= 128 && mouseCoordinates.y <= 192) {
+                            if(!client.getDidJoinRoom()) {
+                                client.connect();
+                            } else {
+                                client.onMessage("");
+                                menu = Menus.ONLINE_GAME;
+                            }
+                        }
+                        if (mouseCoordinates.y >= 224 && mouseCoordinates.y <= 384) {
+                            gameBoardSetToBasic(gameBoard);
+                            server.start();
+                        }
+                        if (mouseCoordinates.y >= 400 && mouseCoordinates.y <= 464) {
+                            menu = Menus.MAIN_MENU;
+                        }
+                    }
+                    break;
+                case MAIN_MENU:
+                    if (mouseCoordinates.x >= 64 && mouseCoordinates.x <= 384) {
+                        if (mouseCoordinates.y >= 128 && mouseCoordinates.y <= 192) {
+                            gameBoardSetToBasic(gameBoard);
+                            menu = Menus.OFFLINE_GAME;
+                        }
+                        if (mouseCoordinates.y >= 224 && mouseCoordinates.y <= 384) {
+                            menu = Menus.ONLINE_MENU;
+                        }
+                        if (mouseCoordinates.y >= 320 && mouseCoordinates.y <= 384) {
+                            System.exit(0);
+                        }
+                    }
+                    break;
+                case OFFLINE_GAME:
+                    if (selectedFigure.figure_x == -1 && selectedFigure.figure_y == -1 && selectedFigure.figure == FigureNames.EMPTY) {
+                        selectedFigure.figure_x = mouseCoordinatesRelative.x;
+                        selectedFigure.figure_y = mouseCoordinatesRelative.y;
+                        selectedFigure.figure = gameBoard[selectedFigure.figure_y][selectedFigure.figure_x];
+                        System.out.println("Selected " + selectedFigure.figure);
+                    } else {
+                        moveFigure(pane, scene, gameBoard, mouseCoordinatesRelative, selectedFigure);
+                    }
+                    break;
+                default:
+                    break;
             }
         });
     }
 
-    public static void moveFigure(Pane pane, Scene scene, FigureNames[][] gameBoard, Mouse.MouseCoordinates mouseCoordinatesRelative, SelectedFigure selectedFigure, Menus menus) {
+    public static void moveFigure(Pane pane, Scene scene, FigureNames[][] gameBoard, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, SelectedFigure selectedFigure) {
         changeTurns();
         Movement movement = null;
         boolean[][] dangerFieldsWhite = new boolean[8][8];

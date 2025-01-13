@@ -2,8 +2,8 @@ package com.psk.chess.projekt.figures;
 
 import java.util.Arrays;
 
-import static com.psk.chess.projekt.MovingFigures.whiteEnPassantStates;
-import static com.psk.chess.projekt.MovingFigures.blackEnPassantStates;
+import static com.psk.chess.projekt.Globals.whiteEnPassantStates;
+import static com.psk.chess.projekt.Globals.blackEnPassantStates;
 
 public class PawnMovement extends Movement {
     private boolean removeWhenEnPassant = true;

@@ -14,7 +14,12 @@ module com.psk.chess.projekt {
     opens com.psk.chess.projekt to javafx.fxml;
     exports com.psk.chess.projekt;
     exports com.psk.chess.projekt.figures;
+    exports com.psk.chess.projekt.api;
     opens com.psk.chess.projekt.figures to javafx.fxml;
     exports com.psk.chess.projekt.figures.checks;
     opens com.psk.chess.projekt.figures.checks to javafx.fxml;
+    exports com.psk.chess.projekt.menus;
+    opens com.psk.chess.projekt.menus to javafx.fxml;
+    exports com.psk.chess.projekt.mouse;
+    opens com.psk.chess.projekt.mouse to javafx.fxml;
 }

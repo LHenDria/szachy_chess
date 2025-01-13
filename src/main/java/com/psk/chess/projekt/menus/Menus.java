@@ -1,4 +1,4 @@
-package com.psk.chess.projekt.figures;
+package com.psk.chess.projekt.menus;
 
 public enum Menus {
     MAIN_MENU,

@@ -1,25 +1,26 @@
 package com.psk.chess.projekt.figures.checks;
 
-import com.psk.chess.projekt.Mouse;
+import com.psk.chess.projekt.mouse.MousePos;
 import com.psk.chess.projekt.MovingFigures;
 import com.psk.chess.projekt.figures.*;
+
+import static com.psk.chess.projekt.Globals.gameWonByBlack;
+import static com.psk.chess.projekt.Globals.gameWonByWhite;
+import static com.psk.chess.projekt.Globals.gameWonByStalemate;
 
 public class CheckmateChecker {
     private int amountOfLegalMovesForWhite = 0;
     private int amountOfLegalMovesForBlack = 0;
     private FigureNames[][] originalGameBoard;
-    private Mouse.MouseCoordinates mouseCoordinatesRelative;
-    public boolean didWhiteWin = false;
-    public boolean didBlackWin = false;
-    public boolean didStalemate = false;
+    private MousePos.MouseCoordinatesRelative mouseCoordinatesRelative;
     private boolean[][] whiteDangerFields;
     private boolean[][] blackDangerFields;
     private int kingPosX = 0;
     private int kingPosY = 0;
 
-    public CheckmateChecker(FigureNames[][] gameBoard, Mouse.MouseCoordinates mouseCoordinates, boolean[][] whiteDangerFields, boolean[][] blackDangerFields) {
+    public CheckmateChecker(FigureNames[][] gameBoard, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, boolean[][] whiteDangerFields, boolean[][] blackDangerFields) {
         this.originalGameBoard = gameBoard;
-        this.mouseCoordinatesRelative = mouseCoordinates;
+        this.mouseCoordinatesRelative = mouseCoordinatesRelative;
         this.whiteDangerFields = whiteDangerFields;
         this.blackDangerFields = blackDangerFields;
     }
@@ -32,37 +33,37 @@ public class CheckmateChecker {
                 }
             }
         }
-        System.out.println(FigureNames.WHITEKING + ":");
-        for (int xi = 0; xi < 8; xi++) {
-            for (int xj = 0; xj < 8; xj++) {
-                System.out.print(whiteDangerFields[xi][xj] ? "🟥" : "🟩");
-            }
-            System.out.println();
-        }
-        System.out.println(FigureNames.BLACKKING + ":");
-        for (int xi = 0; xi < 8; xi++) {
-            for (int xj = 0; xj < 8; xj++) {
-                System.out.print(blackDangerFields[xi][xj] ? "🟥" : "🟩");
-            }
-            System.out.println();
-        }
+//        System.out.println(FigureNames.WHITEKING + ":");
+//        for (int xi = 0; xi < 8; xi++) {
+//            for (int xj = 0; xj < 8; xj++) {
+//                System.out.print(whiteDangerFields[xi][xj] ? "🟥" : "🟩");
+//            }
+//            System.out.println();
+//        }
+//        System.out.println(FigureNames.BLACKKING + ":");
+//        for (int xi = 0; xi < 8; xi++) {
+//            for (int xj = 0; xj < 8; xj++) {
+//                System.out.print(blackDangerFields[xi][xj] ? "🟥" : "🟩");
+//            }
+//            System.out.println();
+//        }
 
 
         System.out.println("Black: " + amountOfLegalMovesForBlack);
         System.out.println("White: " + amountOfLegalMovesForWhite);
         if(this.amountOfLegalMovesForWhite == 0) {
-            didBlackWin = true;
+            gameWonByBlack = true;
         }
         if(this.amountOfLegalMovesForBlack == 0) {
-            didWhiteWin = true;
+            gameWonByWhite = true;
         }
         checkForKing(FigureNames.WHITEKING);
         if(this.amountOfLegalMovesForWhite == 0 && !whiteDangerFields[kingPosY][kingPosX]) {
-            didStalemate = true;
+            gameWonByStalemate = true;
         }
         checkForKing(FigureNames.BLACKKING);
         if(this.amountOfLegalMovesForBlack == 0 && !blackDangerFields[kingPosY][kingPosX]) {
-            didStalemate = true;
+            gameWonByStalemate = true;
         }
     }
 

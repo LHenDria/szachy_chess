@@ -1,5 +1,7 @@
 package com.psk.chess.projekt.api;
 
-public class GameBoardEvent extends Event {
+import com.psk.chess.projekt.figures.FigureNames;
 
+public class GameBoardEvent extends Event {
+    public FigureNames[][] gameBoard;
 }

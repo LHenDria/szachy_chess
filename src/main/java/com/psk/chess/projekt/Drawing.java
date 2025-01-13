@@ -7,7 +7,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import static com.psk.chess.projekt.Globals.*;
 import static com.psk.chess.projekt.SimpleShapes.createSquare;
+import static com.psk.chess.projekt.menus.GameEndText.drawEndText;
 
 public class Drawing {
     public static void drawPromotionFigures(FigureNames[][] gameBoard,Pane pane) {
@@ -40,6 +42,18 @@ public class Drawing {
             for (int j = 0; j < 4; j++) {
                 createSquare(j*128+64,i*128,64,64, Color.CORNFLOWERBLUE, pane);
             }
+        }
+    }
+
+    public static void drawEndGameText(Pane pane) {
+        if(gameWonByWhite) {
+            drawEndText(pane, "White wins!", 5, 5, 250, 250, Color.BURLYWOOD);
+        }
+        if(gameWonByBlack) {
+            drawEndText(pane, "Black wins!", 5, 5, 250, 250, Color.TURQUOISE);
+        }
+        if (gameWonByStalemate) {
+            drawEndText(pane, "Stalemate...", 5, 5, 250, 250, Color.CRIMSON);
         }
     }
 

@@ -1,6 +1,6 @@
 package com.psk.chess.projekt.figures;
 
-import com.psk.chess.projekt.Mouse;
+import com.psk.chess.projekt.mouse.MousePos;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 
@@ -11,7 +11,7 @@ import static java.lang.Math.floor;
 public class PawnBonus {
     private FigureNames[][] gameBoard;
     private Scene scene;
-    Mouse.MouseCoordinates mouse = new Mouse.MouseCoordinates();
+    MousePos.MouseCoordinatesRelative mouse = new MousePos.MouseCoordinatesRelative();
 
     public PawnBonus(FigureNames[][] gameBoard, Scene scene) {
         this.gameBoard = gameBoard;
@@ -60,7 +60,7 @@ public class PawnBonus {
     }
 
     private CompletableFuture waitForMousePress() {
-        CompletableFuture<Mouse.MouseCoordinates> future = new CompletableFuture<>();
+        CompletableFuture<MousePos.MouseCoordinatesRelative> future = new CompletableFuture<>();
         scene.setOnMousePressed(event -> {
             mouse.x = (int) floor(event.getSceneX());
             mouse.y = (int) floor(event.getSceneY());

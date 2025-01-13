@@ -1,24 +1,21 @@
 package com.psk.chess.projekt.figures.checks;
 
-import com.psk.chess.projekt.Mouse;
+import com.psk.chess.projekt.mouse.MousePos;
 import com.psk.chess.projekt.MovingFigures;
 import com.psk.chess.projekt.figures.*;
 
-import java.util.Arrays;
-
-import static com.psk.chess.projekt.MovingFigures.is_white_turn;
-import static com.psk.chess.projekt.MovingFigures.number_of_turns;
+import static com.psk.chess.projekt.Globals.is_white_turn;
 
 public class CheckChecker {
     private FigureNames[][] gameBoard;
     private int kingPosX;
     private int kingPosY;
-    private Mouse.MouseCoordinates mouseCoordinatesRelative;
+    private MousePos.MouseCoordinatesRelative mouseCoordinatesRelative;
     private MovingFigures.SelectedFigure selectedFigure;
     private FigureNames king;
 
 
-    public CheckChecker(FigureNames[][] gameBoard, Mouse.MouseCoordinates mouseCoordinatesRelative, MovingFigures.SelectedFigure selectedFigure, FigureNames king) {
+    public CheckChecker(FigureNames[][] gameBoard, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, MovingFigures.SelectedFigure selectedFigure, FigureNames king) {
         this.gameBoard = gameBoard;
         this.mouseCoordinatesRelative = mouseCoordinatesRelative;
         this.selectedFigure = selectedFigure;

@@ -1,13 +1,13 @@
 package com.psk.chess.projekt.figures;
 
 import com.psk.chess.projekt.figures.checks.CheckmateChecker;
+import com.psk.chess.projekt.menus.Menus;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 
-import static com.psk.chess.projekt.GameLoop.allowFirstCreationOfButtons;
-import static com.psk.chess.projekt.GameLoop.menus;
-import static com.psk.chess.projekt.MovingFigures.number_of_turns;
+import static com.psk.chess.projekt.Globals.gameWonByBlack;
+import static com.psk.chess.projekt.Globals.gameWonByWhite;
+import static com.psk.chess.projekt.Globals.gameWonByStalemate;
+import static com.psk.chess.projekt.Globals.menu;
 
 public class GameEnding {
     private CheckmateChecker checkmateChecker;
@@ -19,48 +19,15 @@ public class GameEnding {
     }
 
     public void checkIfGameEnded() {
-        if (checkmateChecker.didStalemate) {
-            Text text = new Text();
-            text.setText("Stalemate...");
-            text.setScaleX(5.0);
-            text.setScaleY(5.0);
-            text.setTranslateX(250.0);
-            text.setTranslateY(250.0);
-            text.setFill(Color.BURLYWOOD);
-            pane.getChildren().add(text);
-            menus = Menus.MAIN_MENU;
-
-            allowFirstCreationOfButtons = true;
+        if (gameWonByStalemate) {
+            menu = Menus.MAIN_MENU;
             pane.getChildren().clear();
-            number_of_turns = 0;
-        } else if (checkmateChecker.didWhiteWin) {
-            Text text = new Text();
-            text.setText("White wins!");
-            text.setScaleX(5.0);
-            text.setScaleY(5.0);
-            text.setTranslateX(250.0);
-            text.setTranslateY(250.0);
-            text.setFill(Color.TURQUOISE);
-            pane.getChildren().add(text);
-            menus = Menus.MAIN_MENU;
-
-            allowFirstCreationOfButtons = true;
+        } else if (gameWonByWhite) {
+            menu = Menus.MAIN_MENU;
             pane.getChildren().clear();
-            number_of_turns = 0;
-        } else if (checkmateChecker.didBlackWin) {
-            Text text = new Text();
-            text.setText("Black wins!");
-            text.setScaleX(5.0);
-            text.setScaleY(5.0);
-            text.setTranslateX(250.0);
-            text.setTranslateY(250.0);
-            text.setFill(Color.CRIMSON);
-            pane.getChildren().add(text);
-            menus = Menus.MAIN_MENU;
-
-            allowFirstCreationOfButtons = true;
+        } else if (gameWonByBlack) {
+            menu = Menus.MAIN_MENU;
             pane.getChildren().clear();
-            number_of_turns = 0;
         }
     }
 }

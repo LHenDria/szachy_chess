@@ -23,6 +23,7 @@ public class GameBoard {
         FigureNames[][] gameBoard = new FigureNames[8][8];
         Rectangle[][] figureTextures = new Rectangle[8][8];
         MovingFigures.SelectedFigure selectedFigure = new MovingFigures.SelectedFigure();
+
         GameLoop gameLoop = new GameLoop(scene, pane, stage, gameBoard, figureTextures, selectedFigure);
         gameLoop.start();
     }
