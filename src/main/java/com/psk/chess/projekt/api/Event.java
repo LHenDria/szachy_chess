@@ -16,6 +16,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
         @Type(value = GameBoardEvent.class, name = "GAMEBOARD"),
         @Type(value = StartGameEvent.class, name = "GAMESTART"),
 })
+
+/**
+ * Klasa która reprezentuje typ eventu który ma zostać wykorzystany w komunikacji sieciowej.
+ */
 public class Event {
     public EventType type;
 }

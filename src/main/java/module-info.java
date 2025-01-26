@@ -10,8 +10,10 @@ module com.psk.chess.projekt {
     requires org.slf4j;
     requires org.java_websocket;
     requires java.net.http;
+    requires junit;
 
     opens com.psk.chess.projekt to javafx.fxml;
+    exports com.psk.chess.projekt.unittests;
     exports com.psk.chess.projekt;
     exports com.psk.chess.projekt.figures;
     exports com.psk.chess.projekt.api;

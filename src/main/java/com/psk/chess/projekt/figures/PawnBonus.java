@@ -8,16 +8,37 @@ import java.util.concurrent.CompletableFuture;
 
 import static java.lang.Math.floor;
 
+/**
+ * Klasa, która odpowiada za promocję pionków.
+ */
 public class PawnBonus {
+    /**
+     * Szachownica gry.
+     */
     private FigureNames[][] gameBoard;
+    /**
+     * Scena gry.
+     */
     private Scene scene;
+    /**
+     * Pozycja myszy w relacji do szachownicy.
+     */
     MousePos.MouseCoordinatesRelative mouse = new MousePos.MouseCoordinatesRelative();
 
+    /**
+     * Konstruktor klasy PawnBonus. Tylko przypisuje polom wartości.
+     * @param gameBoard
+     * @param scene
+     */
     public PawnBonus(FigureNames[][] gameBoard, Scene scene) {
         this.gameBoard = gameBoard;
         this.scene = scene;
     }
 
+    /**
+     * Metoda sprawdzi, czy pionek doszedł do końca planszy. Po czym zacznie asynchronicznie czekać do momentu, w którym gracz
+     * wybierze figurę.
+     */
     public void promotePawn() {
         for (int i = 0; i < 8; i++) {
             if (gameBoard[0][i] == FigureNames.WHITEPAWN) {
@@ -59,6 +80,11 @@ public class PawnBonus {
         }
     }
 
+    /**
+     * Metoda, która czeka do momentu, w którym zostanie naciśnięty przycisk myszy. Po czym ustawia pozycję zmiennej mouse
+     * na tą, w której został naciśnięty.
+     * @return zwraca CompletableFuture.
+     */
     private CompletableFuture waitForMousePress() {
         CompletableFuture<MousePos.MouseCoordinatesRelative> future = new CompletableFuture<>();
         scene.setOnMousePressed(event -> {

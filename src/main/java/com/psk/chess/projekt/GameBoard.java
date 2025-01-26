@@ -7,14 +7,13 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 /**
- * Klasa w której znajdują się metody które są wykorzystywane do inicjalizacji gry.
+ * Klasa, w której znajdują się metody które są wykorzystywane do inicjalizacji gry.
  */
 public class GameBoard {
     /**
-     * Metoda gameInnit() inicjalizuje najważnisze dla działania programu wartości które będą wykorzystywane
-     * podczas gry, oraz tworzy pętlę gry. Te wartości to:
-     * gameBoard - macierz 8x8 typów FigureNames, jest to odzwierciedlenie szachownicy,
-     * figureTextures - macierz 8x8 objektów klasy Rectangle, wykorzystywane do poprawnego usuwania elementów.
+     * Metoda inicjalizuje najważnisze dla działania programu wartości, które będą wykorzystywane
+     * podczas gry oraz tworzy pętlę gry. Te wartości to: gameBoard, czyli zachownica gry oraz figuretextures,
+     * czyli macierz z teksturami figur.
      * @param pane panel gry.
      * @param scene scena gry.
      * @param stage okno gry.

@@ -14,24 +14,54 @@ import java.util.Arrays;
 
 import static com.psk.chess.projekt.Globals.member;
 
+/**
+ * Klasa, która ma się zajmować serwerem.
+ */
 public class ServerSide extends WebSocketServer {
+    /**
+     * Czy klient dołączył do serwera.
+     */
     private boolean didClientJoin = false;
+    /**
+     * Klasa ObjectMapper, która miała zostać wykorzystana do wysyłania wiadomości do serwera przez JSON.
+     */
     private final ObjectMapper objectMapper = new ObjectMapper();
+    /**
+     * Szachownica gry.
+     */
     private FigureNames[][] gameBoard;
 
+    /**
+     * Setter dla szachownicy gry.
+     * @param gameBoard szachownica gry.
+     */
     public void setGameBoard(FigureNames[][] gameBoard) {
         this.gameBoard = gameBoard;
     }
 
+    /**
+     * Konstruktor klasy ServerSide. Tylko przypisuje wartości do pól.
+     * @param address adres serwera.
+     */
     public ServerSide(InetSocketAddress address) {
         super(address);
     }
 
+    /**
+     * Metoda, która jest wywoływana, kiedy klient dołączy do serwera.
+     * @param conn połączenie.
+     * @param handshake handshake.
+     */
     @Override
     public void onOpen(WebSocket conn, ClientHandshake handshake) {
 
     }
 
+    /**
+     * Metoda, która jest wywoływana, kiedy serwer przyjmie wiadomość od klienta.
+     * @param conn połączenie.
+     * @param message wiadomość.
+     */
     @Override
     public void onMessage(WebSocket conn, String message) {
         if (!didClientJoin) {
@@ -56,6 +86,10 @@ public class ServerSide extends WebSocketServer {
         }
     }
 
+    /**
+     * Metoda, która miała za zadanie wysyłać do klienta szachownicę gry.
+     * @param conn połączenie.
+     */
     private void sendGameBoardEvent(WebSocket conn) {
         try {
             GameBoardEvent event = new GameBoardEvent();
@@ -71,21 +105,41 @@ public class ServerSide extends WebSocketServer {
         }
     }
 
+    /**
+     * Metoda, która jest wywoływana, kiedy serwer jest zamykany.
+     * @param conn połączenie.
+     * @param code kod.
+     * @param reason powód.
+     * @param remote remote.
+     */
     @Override
     public void onClose(WebSocket conn, int code, String reason, boolean remote) {
         System.out.println("Server closed.");
     }
 
+    /**
+     * Metoda, która jest wywoływana, kiedy serwer przyjmie wiadomość od klienta.
+     * @param conn połączenie.
+     * @param message wiadomość.
+     */
     @Override
     public void onMessage(WebSocket conn, ByteBuffer message) {
         System.out.println("received ByteBuffer from " + conn.getRemoteSocketAddress());
     }
 
+    /**
+     * Metoda, która jest wywoływana podczas wystąpienia błędu.
+     * @param conn połączenie.
+     * @param ex wyjątek.
+     */
     @Override
     public void onError(WebSocket conn, Exception ex) {
         System.err.println("an error occurred on connection " + conn.getRemoteSocketAddress() + ":" + ex);
     }
 
+    /**
+     * Metoda, która jest wywoływana przy starcie serwera.
+     */
     @Override
     public void onStart() {
         System.out.println("Server started.");

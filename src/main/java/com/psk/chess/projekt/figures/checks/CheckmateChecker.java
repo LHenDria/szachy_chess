@@ -8,16 +8,50 @@ import static com.psk.chess.projekt.Globals.gameWonByBlack;
 import static com.psk.chess.projekt.Globals.gameWonByWhite;
 import static com.psk.chess.projekt.Globals.gameWonByStalemate;
 
+/**
+ * Klasa która będzie sprawdzać czy król został zszachowany zmatowany.
+ */
 public class CheckmateChecker {
+    /**
+     * Ilość legalnych ruchów którą może wykonać biały.
+     */
     private int amountOfLegalMovesForWhite = 0;
+    /**
+     * Ilość legalnych ruchów którą może wykonać czarny.
+     */
     private int amountOfLegalMovesForBlack = 0;
+    /**
+     * Szachownica gry.
+     */
     private FigureNames[][] originalGameBoard;
+    /**
+     * Pozycja myszy w relacji do szachownicy.
+     */
     private MousePos.MouseCoordinatesRelative mouseCoordinatesRelative;
+    /**
+     * Macierz niebezpiecznych pól dla białego króla.
+     */
     private boolean[][] whiteDangerFields;
+    /**
+     * Macierz niebezpiecznych pól dla czarnego króla.
+     */
     private boolean[][] blackDangerFields;
+    /**
+     * Pozycja króla na osi X.
+     */
     private int kingPosX = 0;
+    /**
+     * Pozycja króla na osi Y.
+     */
     private int kingPosY = 0;
 
+    /**
+     * Konstruktor klasy CheckmateChecker. Tylko przypisuje polom wartości podawane w argumentach.
+     * @param gameBoard szachownica gry.
+     * @param mouseCoordinatesRelative pozycja kursowa w relacji do szachownicy.
+     * @param whiteDangerFields macierz niebezpiecznych pól dla białego króla.
+     * @param blackDangerFields macierz niebezpiecznych pól dla czarnego króla.
+     */
     public CheckmateChecker(FigureNames[][] gameBoard, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, boolean[][] whiteDangerFields, boolean[][] blackDangerFields) {
         this.originalGameBoard = gameBoard;
         this.mouseCoordinatesRelative = mouseCoordinatesRelative;
@@ -25,6 +59,11 @@ public class CheckmateChecker {
         this.blackDangerFields = blackDangerFields;
     }
 
+    /**
+     * Metoda sprawdzi wszystkie możliwe legalne ruchy. Jeżeli jeden z króli nie może wykonać ani jednego legalnego ruchu i jest w szachu
+     * to metoda poinformouje o końcu gry zwycięsctwem gracza z przeciwnym kolorem. Jeżeli jeden z króli nie możę wykonać ani jednego
+     * legalnego ruchu i nie jest w szachu to gra zakończy się patem.
+     */
     public void lookForCheckmates() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -67,6 +106,10 @@ public class CheckmateChecker {
         }
     }
 
+    /**
+     * Metoda która szuka pozycji króla.
+     * @param king który król ma być szukany.
+     */
     private void checkForKing(FigureNames king) {
         for (kingPosY = 0; kingPosY < 8; kingPosY++) {
             for (kingPosX = 0; kingPosX < 8; kingPosX++) {
@@ -77,6 +120,13 @@ public class CheckmateChecker {
         }
     }
 
+    /**
+     * Metoda która sprawdzi wszystkie możliwe ruchy. Jeżeli ruch jest legalny to zwiększy wartość amountOfLegalMovesForWhite lub
+     * amountOfLegalMovesForBlack o 1.
+     * @param figure figura dla której będą sprawdzane wszystkie ruchy.
+     * @param fig_y pozycja na osi Y figury.
+     * @param fig_x pozycja na osi X figury.
+     */
     private void checkAllLegalMoves(FigureNames figure, int fig_y, int fig_x) {
         Movement movement = null;
         boolean[][] dangerFieldsWhite = new boolean[8][8];

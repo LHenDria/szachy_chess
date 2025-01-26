@@ -20,7 +20,7 @@ import static com.psk.chess.projekt.GameBoard.gameInnit;
 public class Main extends Application {
     /**
      * Metoda start() tworzy okno gry, panel oraz scenę.
-     * @param stage okno gry tworzone przez framework JavaFX.
+     * @param stage okno gry.
      * @throws IOException wyjątek wyrzucany przez framework JavaFX.
      */
     @Override
@@ -34,7 +34,7 @@ public class Main extends Application {
     }
 
     /**
-     * Metoda main() uruchamia metodę launch() z klasy Application.
+     * Metoda main() uruchamia metodę launch().
      * @param args argumenty dla metody main().
      */
     public static void main(String[] args) {

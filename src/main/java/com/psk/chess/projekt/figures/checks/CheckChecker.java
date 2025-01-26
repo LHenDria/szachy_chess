@@ -6,15 +6,42 @@ import com.psk.chess.projekt.figures.*;
 
 import static com.psk.chess.projekt.Globals.is_white_turn;
 
+/**
+ * Klasa która będzie sprawdzać czy król został zszachowany.
+ */
 public class CheckChecker {
+    /**
+     * Szachownica gry,
+     */
     private FigureNames[][] gameBoard;
+    /**
+     * Pozycja na osi X króla.
+     */
     private int kingPosX;
+    /**
+     * Pozycja na osi Y króla.
+     */
     private int kingPosY;
+    /**
+     * Pozycja myszy w relacji do szachownicy.
+     */
     private MousePos.MouseCoordinatesRelative mouseCoordinatesRelative;
+    /**
+     * Informację o wybranej figurze.
+     */
     private MovingFigures.SelectedFigure selectedFigure;
+    /**
+     * Jaki kolor ma nasz król.
+     */
     private FigureNames king;
 
-
+    /**
+     * Konstruktor klasy CheckChecker. Tylko przypisuje wartości do pól.
+     * @param gameBoard szachownica gry.
+     * @param mouseCoordinatesRelative koordynaty myszy w relacji do szachownicy.
+     * @param selectedFigure informacje o wybranej figurze.
+     * @param king kolor króla.
+     */
     public CheckChecker(FigureNames[][] gameBoard, MousePos.MouseCoordinatesRelative mouseCoordinatesRelative, MovingFigures.SelectedFigure selectedFigure, FigureNames king) {
         this.gameBoard = gameBoard;
         this.mouseCoordinatesRelative = mouseCoordinatesRelative;
@@ -22,6 +49,10 @@ public class CheckChecker {
         this.king = king;
     }
 
+    /**
+     * Metoda ta sprawdza czy ruch który zostanie wykonany wyprowani naszego króla z szachu.
+     * @return zwraca true jeżeli ruch spowoduje wyjście z szachu, zwraca false jeżeli ruch tego nie spowoduje.
+     */
     public boolean willMoveGetKingOutOfCheck() {
         boolean[][] dangerFields = new boolean[8][8];
         Check check = new Check(dangerFields);
@@ -99,6 +130,9 @@ public class CheckChecker {
         return !dangerFields[kingPosY][kingPosX];
     }
 
+    /**
+     * Metoda która sprawdza gdzie jest król.
+     */
     private void checkWhereIsKing() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {

@@ -17,17 +17,48 @@ import static com.psk.chess.projekt.Globals.*;
 import static com.psk.chess.projekt.MovingFigures.selectFigure;
 import static com.psk.chess.projekt.menus.CreateMenuButtons.*;
 
-
+/**
+ * Klasa w której znajdują się metody do obsługi pętli gry oraz poprawnej rozgrywki.
+ */
 public class GameLoop extends AnimationTimer {
+    /**
+     * Koordynaty myszy w relacji do pól szachownicy.
+     */
     private MousePos.MouseCoordinatesRelative mouseCoordinatesRelative = new MousePos.MouseCoordinatesRelative();
+    /**
+     * Koordynaty myszy.
+     */
     private MousePos.MouseCoordinates mouseCoordinates = new MousePos.MouseCoordinates();
+    /**
+     * Scena gry.
+     */
     private Scene scene;
+    /**
+     * Panel gry.
+     */
     private Pane pane;
+    /**
+     * Okno gry.
+     */
     private Stage stage;
+    /**
+     * Szachownica gry.
+     */
     private FigureNames[][] gameBoard;
+    /**
+     * Tekstury figur.
+     */
     private Rectangle[][] figureTextures;
-    private MovingFigures.SelectedFigure selectedFigure;
 
+    /**
+     * Konstruktor klasy GameLoop. Wywołuje on metodę selectFigure() która jest wymaga podczas gry.
+     * @param scene scena gry.
+     * @param pane panel gry.
+     * @param stage okno gry.
+     * @param gameBoard szachownica gry.
+     * @param figureTextures tekstury figur.
+     * @param selectedFigure informacje o wybranej figurze.
+     */
     public GameLoop(Scene scene, Pane pane, Stage stage, FigureNames[][] gameBoard, Rectangle[][] figureTextures, MovingFigures.SelectedFigure selectedFigure) {
         this.scene = scene;
         this.pane = pane;
@@ -41,6 +72,10 @@ public class GameLoop extends AnimationTimer {
         selectFigure(pane, scene, gameBoard, mouseCoordinates, mouseCoordinatesRelative, selectedFigure);
     }
 
+    /**
+     * Metoda która ustawi szachownicę gry do takiej jaka powinna być na początku gry.
+     * @param gameBoard szachownica gry.
+     */
     public static void gameBoardSetToBasic(FigureNames[][] gameBoard) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -71,6 +106,9 @@ public class GameLoop extends AnimationTimer {
         }
     }
 
+    /**
+     * Metoda która odpowiada za odświeżanie różnych elementów które mogą się pojawić w czasie gry offline.
+     */
     private void offlineGame() {
         updateFiguresOnBoard(gameBoard, figureTextures, pane);
         for (int i = 0; i < 8; i++) {
@@ -80,6 +118,10 @@ public class GameLoop extends AnimationTimer {
         }
     }
 
+    /**
+     * Pętla gry. Odpowiada za to w którym menu się znajdujemy oraz wywoływanie odpowiednich metod do odświeżania ekranu gry.
+     * @param now czas gry.
+     */
     @Override
     public void handle(long now) {
         MousePos.getMouseCoordsRelativeToChessBoard(scene, mouseCoordinates, mouseCoordinatesRelative);

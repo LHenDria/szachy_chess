@@ -5,14 +5,34 @@ import java.util.Arrays;
 import static com.psk.chess.projekt.Globals.whiteEnPassantStates;
 import static com.psk.chess.projekt.Globals.blackEnPassantStates;
 
+/**
+ * Klasa, która reprezentuje poruszanie się pionka. Dziedziczy po klasie Movement.
+ */
 public class PawnMovement extends Movement {
+    /**
+     * Sprawdzenie, czy pionek może zostać usunięty podczas en passant.
+     */
     private boolean removeWhenEnPassant = true;
 
+    /**
+     * Konstruktor klasy PawnMovement. Tylko przypisuje wartości do pól.
+     * @param gameBoard szachownica gry.
+     * @param figure_y pozycja figury na osi Y.
+     * @param figure_x pozycja figury na osi X.
+     * @param mouse_y pozycja na osi Y, na którą figura ma się ruszyć.
+     * @param mouse_x pozycja na osi X, na którą figura ma się ruszyć.
+     * @param is_white_turn czy jest to ruch białego.
+     * @param removeWhenEnPassant czy może zostać usunięty podczas en passant.
+     */
     public PawnMovement(FigureNames[][] gameBoard, int figure_y, int figure_x, int mouse_y, int mouse_x, boolean is_white_turn, boolean removeWhenEnPassant) {
         super(gameBoard, figure_y, figure_x, mouse_y, mouse_x, is_white_turn);
         this.removeWhenEnPassant = removeWhenEnPassant;
     }
 
+    /**
+     * Metoda, która sprawdzi, czy wykonywany ruch jest legalny. Będzie modyfikować szachownicę gry podczas en passant do usuwania przeciwnych pionków.
+     * @return zwraca true, jeżeli ruch jest legalny, false, jeżeli nie jest.
+     */
     @Override
     public boolean isMoveLegal() {
         if(removeWhenEnPassant) {
@@ -116,6 +136,9 @@ public class PawnMovement extends Movement {
         }
     }
 
+    /**
+     * Metoda, która odpowiada za sprawdzanie i zmianę, które pionki już nie mogą wykonać en passant.
+     */
     private void changeEnPassantEnumsStatus() {
         for (int i = 0; i < 8; i++) {
             if(gameBoard[3][i] == FigureNames.BLACKPAWN) {

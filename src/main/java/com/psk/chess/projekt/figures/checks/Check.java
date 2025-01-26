@@ -2,13 +2,32 @@ package com.psk.chess.projekt.figures.checks;
 
 import com.psk.chess.projekt.figures.FigureNames;
 
+/**
+ * Klasa która ma za zadanie wypełnić macierz niebezpiecznymi pola dla króla.
+ */
 public class Check {
+    /**
+     * Macierz która ma zawiera w sobie pola na które król nie może stanąć ponieważ będzie w szachu.
+     */
     private boolean[][] dangerFields;
 
+    /**
+     * Konstruktor klasy Check. Tylko przypisuje wartości.
+     * @param dangerFields macierz niebezpiecznych pól.
+     */
     public Check(boolean[][] dangerFields) {
         this.dangerFields = dangerFields;
     }
 
+    /**
+     * Metoda wypełnia macierz dangerFields niebezpiecznymi polami które są generowane przez wieżę.
+     * @param i pozycja na osi X wieży.
+     * @param j pozycja na osi Y wieży.
+     * @param gameBoard szachownica gry
+     * @param dangerFields macierz z niebezpiecznymi polami.
+     * @param ourPiece kolor figury która generuje niebezpieczne pola.
+     * @param enemyKing jaki kolor ma przeciwny król.
+     */
     private void rookFillDangerFields(int i, int j, FigureNames[][] gameBoard, boolean dangerFields[][], FigureNames ourPiece , FigureNames enemyKing) {
         boolean blocking1 = true;
         boolean blocking2 = true;
@@ -58,6 +77,15 @@ public class Check {
         }
     }
 
+    /**
+     * Metoda wypełnia macierz dangerFields niebezpiecznymi polami które są generowane przez gońca.
+     * @param i pozycja na osi X gońca.
+     * @param j pozycja na osi Y gońca.
+     * @param gameBoard szachownica gry
+     * @param dangerFields macierz z niebezpiecznymi polami.
+     * @param ourPiece kolor figury która generuje niebezpieczne pola.
+     * @param enemyKing jaki kolor ma przeciwny król.
+     */
     private void bishopFillDangerFields(int i, int j, FigureNames[][] gameBoard, boolean dangerFields[][], FigureNames ourPiece , FigureNames enemyKing) {
         boolean blocking1 = true;
         boolean blocking2 = true;
@@ -106,7 +134,12 @@ public class Check {
             }
         }
     }
-
+    /**
+     * Metoda wypełnia macierz dangerFields niebezpiecznymi polami które są generowane przez skoczka.
+     * @param i pozycja na osi X skoczka.
+     * @param j pozycja na osi Y skoczka.
+     * @param dangerFields macierz z niebezpiecznymi polami.
+     */
     private void horseyFillDangerFields(int i, int j, boolean dangerFields[][]) {
         if (j + 2 <= 7 && i - 1 >= 0) {
             dangerFields[j + 2][i - 1] = true;
@@ -134,6 +167,12 @@ public class Check {
         }
     }
 
+    /**
+     * Metoda wypełnia macierz dangerFields niebezpiecznymi polami które są generowane przez króla.
+     * @param i pozycja na osi X króla.
+     * @param j pozycja na osi Y króla.
+     * @param dangerFields macierz z niebezpiecznymi polami.
+     */
     private void kingFillDangerFields(int i, int j, boolean dangerFields[][]) {
         for (int k = -1; k <= 1; k++) {
             for (int l = -1; l <= 1; l++) {
@@ -144,11 +183,21 @@ public class Check {
         }
     }
 
+    /**
+     * Metoda wypełnia macierz dangerFields niebezpiecznymi polami które są generowane przez królówkę.
+     * @param i pozycja na osi X królówki.
+     * @param j pozycja na osi Y królówki.
+     * @param dangerFields macierz z niebezpiecznymi polami.
+     */
     private void queenFillDangerFields(int i, int j, FigureNames[][] gameBoard, boolean dangerFields[][], FigureNames ourPiece ,FigureNames enemyKing) {
         rookFillDangerFields(i, j, gameBoard, dangerFields, ourPiece , enemyKing);
         bishopFillDangerFields(i, j, gameBoard, dangerFields, ourPiece , enemyKing);
     }
 
+    /**
+     * Metoda która wypełni macierz dangerFields bezpiecznymi polami.
+     * @param dangerFields macierz niebezpiecznych pól.
+     */
     public void setDangerFields(boolean dangerFields[][]) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -157,6 +206,10 @@ public class Check {
         }
     }
 
+    /**
+     * Metoda wypełni macierz dangerFields dla białego króla niebezpiecznymi polami generowanymi przez wszystkie czarne figury.
+     * @param gameBoard szachownica gry.
+     */
     public void fillSafeFieldsWithNotSafeFieldsForWhiteKing(FigureNames[][] gameBoard) {
         setDangerFields(dangerFields);
         for (int i = 0; i < 8; i++) {
@@ -188,6 +241,10 @@ public class Check {
         }
     }
 
+    /**
+     * Metoda wypełni macierz dangerFields dla czarnego króla niebezpiecznymi polami generowanymi przez wszystkie białe figury.
+     * @param gameBoard szachownica gry.
+     */
     public void fillSafeFieldsWithNotSafeFieldsForBlackKing(FigureNames[][] gameBoard) {
         setDangerFields(dangerFields);
         for (int i = 0; i < 8; i++) {

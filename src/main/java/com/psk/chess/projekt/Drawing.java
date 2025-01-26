@@ -11,7 +11,15 @@ import static com.psk.chess.projekt.Globals.*;
 import static com.psk.chess.projekt.SimpleShapes.createSquare;
 import static com.psk.chess.projekt.menus.GameEndText.drawEndText;
 
+/**
+ * Klasa która przechowuje metody odpowiedzialne za rysowanie elementów na ekranie.
+ */
 public class Drawing {
+    /**
+     * Metoda wywoła metody, które narysują na ekranie menu z figurami podczas promocji pionka, kiedy pionek dojdzie do końca planszy.
+     * @param gameBoard szachownica gry.
+     * @param pane panel gry.
+     */
     public static void drawPromotionFigures(FigureNames[][] gameBoard,Pane pane) {
         SimpleShapes.createSquare(128, 224, 64, 64, Color.WHITESMOKE, pane);
         SimpleShapes.createSquare(192, 224, 64, 64, Color.WHITESMOKE, pane);
@@ -34,6 +42,10 @@ public class Drawing {
         }
     }
 
+    /**
+     * Metoda narysuje na ekranie szachownicę.
+     * @param pane panel gry.
+     */
     public static void createChessBoard(Pane pane) {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
@@ -45,6 +57,10 @@ public class Drawing {
         }
     }
 
+    /**
+     * Metoda wywoła metody, które narysuja na ekranie kto wygrał grę,
+     * @param pane panel gry.
+     */
     public static void drawEndGameText(Pane pane) {
         if(gameWonByWhite) {
             drawEndText(pane, "White wins!", 5, 5, 250, 250, Color.BURLYWOOD);
@@ -57,6 +73,12 @@ public class Drawing {
         }
     }
 
+    /**
+     * Metoda, która narysuje na ekranie figury i będzie je aktualizować.
+     * @param gameBoard szachownica gry.
+     * @param figureTextures macierz z teksturami figur.
+     * @param pane panel gry.
+     */
     static public void updateFiguresOnBoard(FigureNames[][] gameBoard, Rectangle[][] figureTextures, Pane pane) {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
